@@ -54,17 +54,24 @@ Socket programming finds applications in various domains, including web developm
 5.	RPC mechanisms: which allow processes to execute code on a remote server, often use socket programming for communication.
 
 ## Client program:
+```
 import socket
 
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) client_socket.connect(('127.0.0.1', 65432))
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket.bind(('127.0.0.1', 65432))
+server_socket.listen()
+print("Server is listening on port 65432...")
 
-client_socket.send("Hello from Client!".encode())
+conn, addr = server_socket.accept()
+print(f"Connected by {addr}")
 
-data = client_socket.recv(1024).decode() 
-print(f"Server says: {data}")
+data = conn.recv(1024).decode()
+print(f"Client says: {data}")
 
-client_socket.close()
+conn.send("Hello from Server!".encode())
 
+conn.close()
+server_socket.close()
 ## Server Program:
 import socket
 
@@ -83,12 +90,26 @@ conn.send("Hello from Server!".encode())
 
 conn.close()
 server_socket.close()
+```
+## Server program:
+```
+import socket
 
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('127.0.0.1', 65432))
+
+client_socket.send("Hello from Client!".encode())
+
+data = client_socket.recv(1024).decode()
+print(f"Server says: {data}")
+
+client_socket.close()
+```
 ## Client output:
-<img width="1188" height="343" alt="Screenshot 2025-09-03 104849" src="https://github.com/user-attachments/assets/9a077090-436f-4b98-b59b-e1c11952b5d4" />
+<img width="1048" height="316" alt="image" src="https://github.com/user-attachments/assets/28735378-9528-4589-9106-ccde8d990443" />
 
 ## Server output:
-<img width="1168" height="342" alt="Screenshot 2025-09-03 104834" src="https://github.com/user-attachments/assets/ab98f384-99a3-45c3-8849-03e1043bfcac" />
+<img width="886" height="280" alt="image" src="https://github.com/user-attachments/assets/2553dece-2d6c-4219-8c5b-54c16fe9e6fb" />
 
 ## Result:
 Thus the study of Socket Programming Completed Successfully
