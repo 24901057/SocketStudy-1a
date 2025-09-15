@@ -54,7 +54,21 @@ Socket programming finds applications in various domains, including web developm
 5.	RPC mechanisms: which allow processes to execute code on a remote server, often use socket programming for communication.
 
 ## Client program:
+```python
+import socket
+
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('127.0.0.1', 65432))
+
+client_socket.send("Hello from Client!".encode())
+
+data = client_socket.recv(1024).decode()
+print(f"Server says: {data}")
+
+client_socket.close()
 ```
+## Server program:
+```python
 import socket
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -74,25 +88,12 @@ conn.close()
 server_socket.close()
 
 ```
-## Server program:
-```
-import socket
 
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(('127.0.0.1', 65432))
-
-client_socket.send("Hello from Client!".encode())
-
-data = client_socket.recv(1024).decode()
-print(f"Server says: {data}")
-
-client_socket.close()
-```
 ## Client output:
-<img width="1048" height="316" alt="image" src="https://github.com/user-attachments/assets/28735378-9528-4589-9106-ccde8d990443" />
+<img width="636" height="251" alt="image" src="https://github.com/user-attachments/assets/400211ef-3126-4121-9728-aab580dc1744" />
 
 ## Server output:
-<img width="886" height="280" alt="image" src="https://github.com/user-attachments/assets/2553dece-2d6c-4219-8c5b-54c16fe9e6fb" />
+<img width="665" height="290" alt="image" src="https://github.com/user-attachments/assets/7e467734-47b0-4e35-b7df-0b84b3f5f6d0" />
 
 ## Result:
 Thus the study of Socket Programming Completed Successfully
